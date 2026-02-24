@@ -1,0 +1,27 @@
+defmodule SquaredleSolverWeb.Router do
+  use SquaredleSolverWeb, :router
+
+  pipeline :browser do
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_live_flash)
+    plug(:put_root_layout, html: {SquaredleSolverWeb.Layouts, :root})
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
+  end
+
+  pipeline :api do
+    plug(:accepts, ["json"])
+  end
+
+  scope "/", SquaredleSolverWeb do
+    pipe_through(:browser)
+
+    live("/", SolverLive)
+  end
+
+  # Other scopes may use custom stacks.
+  # scope "/api", SquaredleSolverWeb do
+  #   pipe_through :api
+  # end
+end

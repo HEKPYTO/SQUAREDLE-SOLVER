@@ -1,0 +1,44 @@
+[notice] Application squaredle_solver exited: exited in: SquaredleSolver.Application.start(:normal, [])
+    ** (EXIT) an exception was raised:
+        ** (ArgumentError) The module Finch was given as a child to a supervisor but it does not exist
+            (elixir 1.19.5) lib/supervisor.ex:814: Supervisor.init_child/1
+            (elixir 1.19.5) lib/enum.ex:1688: Enum."-map/2-lists^map/1-1-"/2
+            (elixir 1.19.5) lib/enum.ex:1688: Enum."-map/2-lists^map/1-1-"/2
+            (elixir 1.19.5) lib/supervisor.ex:800: Supervisor.init/2
+            (elixir 1.19.5) lib/supervisor.ex:724: Supervisor.start_link/2
+            (kernel 10.5) application_master.erl:299: :application_master.start_it_old/4
+[notice] Application dns_cluster exited: :stopped
+[notice] Application gettext exited: :stopped
+[notice] Application expo exited: :stopped
+[notice] Application telemetry_poller exited: :stopped
+[notice] Application telemetry_metrics exited: :stopped
+[notice] Application tailwind exited: :stopped
+[notice] Application esbuild exited: :stopped
+[notice] Application phoenix_live_view exited: :stopped
+[notice] Application phoenix_live_reload exited: :stopped
+[notice] Application file_system exited: :stopped
+[notice] Application phoenix exited: :stopped
+[notice] Application jason exited: :stopped
+[notice] Application websock_adapter exited: :stopped
+[notice] Application bandit exited: :stopped
+[notice] Application hpax exited: :stopped
+[notice] Application thousand_island exited: :stopped
+[notice] Application websock exited: :stopped
+[notice] Application phoenix_template exited: :stopped
+[notice] Application phoenix_html exited: :stopped
+[notice] Application phoenix_pubsub exited: :stopped
+[notice] Application plug exited: :stopped
+[notice] Application telemetry exited: :stopped
+[notice] Application plug_crypto exited: :stopped
+[notice] Application mime exited: :stopped
+[notice] Application eex exited: :stopped
+[notice] Application runtime_tools exited: :stopped
+** (Mix) Could not start application squaredle_solver: exited in: SquaredleSolver.Application.start(:normal, [])
+    ** (EXIT) an exception was raised:
+        ** (ArgumentError) The module Finch was given as a child to a supervisor but it does not exist
+            (elixir 1.19.5) lib/supervisor.ex:814: Supervisor.init_child/1
+            (elixir 1.19.5) lib/enum.ex:1688: Enum."-map/2-lists^map/1-1-"/2
+            (elixir 1.19.5) lib/enum.ex:1688: Enum."-map/2-lists^map/1-1-"/2
+            (elixir 1.19.5) lib/supervisor.ex:800: Supervisor.init/2
+            (elixir 1.19.5) lib/supervisor.ex:724: Supervisor.start_link/2
+            (kernel 10.5) application_master.erl:299: :application_master.start_it_old/4

@@ -1,0 +1,20 @@
+{
+  "coverage_options": {
+    "treat_no_relevant_lines_as_covered": true,
+    "minimum_coverage": 90
+  },
+  "skip_files": [
+    "lib/squaredle_solver_web/components/core_components.ex",
+    "lib/squaredle_solver_web/components/layouts.ex",
+    "lib/squaredle_solver_web/controllers/error_html.ex",
+    "lib/squaredle_solver_web/controllers/error_json.ex",
+    "lib/squaredle_solver_web/endpoint.ex",
+    "lib/squaredle_solver_web/router.ex",
+    "lib/squaredle_solver_web/telemetry.ex",
+    "lib/squaredle_solver_web.ex",
+    "lib/squaredle_solver_web/gettext.ex",
+    "lib/squaredle_solver.ex",
+    "lib/squaredle_solver/application.ex",
+    "test/support/conn_case.ex"
+  ]
+}
