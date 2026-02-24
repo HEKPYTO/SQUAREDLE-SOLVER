@@ -1,9 +1,0 @@
-[info] Running SquaredleSolverWeb.Endpoint with Bandit 1.10.3 at 127.0.0.1:4000 (http)
-[info] Access SquaredleSolverWeb.Endpoint at http://localhost:4000
-[watch] build finished, watching for changes...
-≈ tailwindcss v4.1.12
-
-/*! 🌼 daisyUI 5.0.35 */
-Done in 119ms
-[notice] SIGTERM received - shutting down
-

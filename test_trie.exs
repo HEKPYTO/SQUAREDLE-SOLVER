@@ -1,5 +1,0 @@
-trie = SquaredleSolver.Trie.new()
-trie = SquaredleSolver.Trie.insert(trie, "apple")
-IO.inspect(trie)
-IO.inspect(SquaredleSolver.Trie.check(trie, "appl"))
-IO.inspect(SquaredleSolver.Trie.check(trie, "apple"))
