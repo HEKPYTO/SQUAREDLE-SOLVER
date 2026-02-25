@@ -1,4 +1,4 @@
-# SquaredleSolver
+# SQUAREDLE-SOLVER
 
 [![CI](https://github.com/your-username/squaredle-solver/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/squaredle-solver/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/github/your-username/squaredle-solver/badge.svg)](https://coveralls.io/github/your-username/squaredle-solver)
@@ -13,9 +13,11 @@ Built to demonstrate the concurrency power of the Erlang VM (BEAM) using paralle
 
 - Optimal Core Algorithm: Parallel processing via `Task.async_stream`, utilizing Bitwise integer masking for instant path-validation without memory overhead, backed by a deeply nested Elixir Map functioning as a Prefix Trie.
 - Robust Edge Case Support: Capable of handling arbitrary grid sizes and irregular board shapes (grids with gaps).
-- Minimalist Phoenix LiveView UI: A clean, brutally stark interactive frontend heavily driven by Tailwind CSS. Processing happens on the server.
-- 100% Core Test Coverage: Strictly developed through Document Driven Development (DDD) and Test Driven Development (TDD).
-- Production Ready: Ships with a minimal Multi-stage Alpine Dockerfile and Docker Compose orchestration.
+- Instant Dictionary: Implements an async `DictionaryServer` (GenServer) on application boot to pre-warm the Trie into BEAM memory for instantaneous 0-latency dictionary lookups.
+- Daily Puzzle Fetching: Connects to the official site and extracts today's puzzle configuration via an isolated HTTP Regex crawler using `Req`.
+- Minimalist Neo-brutalist Phoenix LiveView UI: A clean, stark interactive frontend heavily driven by Tailwind CSS. State handling, form interactions, and solving happen instantaneously over WebSockets without JavaScript.
+- 100% Core Test Coverage: Strictly developed through Document Driven Development (DDD) and Test Driven Development (TDD) via `ExCoveralls`.
+- Production Ready: Ships with a minimal Multi-stage Alpine Dockerfile and Docker Compose orchestration completely free of CORS/Origin constraints, allowing perfect Traefik/Cloudflare proxying.
 
 ---
 
@@ -72,7 +74,7 @@ Visit [`http://localhost:4000`](http://localhost:4000) from your browser.
 
 ## Testing & CI/CD
 
-This project strictly adheres to TDD principles and utilizes `excoveralls` to enforce a 90%+ code coverage threshold. 
+This project strictly adheres to TDD principles and utilizes `excoveralls` to enforce a 100% code coverage threshold on core logic. 
 
 Run the test suite and verify coverage:
 ```bash
@@ -102,7 +104,7 @@ Open `doc/index.html` to view the comprehensive API reference.
 ## Algorithmic Deep Dive
 
 1. Prefix Trie: The English dictionary (words >= 4 letters) is parsed into a deeply nested Elixir map. Map lookups in the BEAM are O(1) per character, enabling instant prefix rejection.
-2. Parallel DFS: Instead of searching sequentially, a separate lightweight process is spawned for each starting letter on the grid.
+2. Parallel DFS: Instead of searching sequentially, a separate lightweight process is spawned for each starting letter on the grid using `Task.async_stream`.
 3. Bitmasking: Tracking the visited cells in a standard List or Set creates immense garbage collection pressure in deep recursion. Since Squaredle boards are small (e.g., 4x4 or 5x5), the visited path is tracked using a single 32-bit integer, relying on bitwise `bor` and `band` operations.
 
 ---
