@@ -11,6 +11,7 @@ defmodule SquaredleSolver.DictionaryServer do
 
   @impl true
   def init(_) do
+    :ets.new(:squaredle_cache, [:named_table, :public, read_concurrency: true])
     # Trigger loading in a background process immediately after init
     send(self(), :load)
     {:ok, %{trie: nil, loaded: false, waiters: []}}

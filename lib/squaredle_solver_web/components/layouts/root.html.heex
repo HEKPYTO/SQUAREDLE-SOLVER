@@ -25,6 +25,15 @@
         if (getThemePreference() === 'dark') {
           document.documentElement.classList.add('dark');
         }
+
+        // Add spacebar toggle for theme (only when not typing in an input)
+        document.addEventListener('keydown', (e) => {
+          if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT') {
+            e.preventDefault(); // Prevent page scrolling
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+          }
+        });
       })();
     </script>
   </head>

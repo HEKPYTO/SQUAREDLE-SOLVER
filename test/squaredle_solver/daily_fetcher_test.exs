@@ -5,12 +5,13 @@ defmodule SquaredleSolver.DailyFetcherTest do
     js = """
     const gTodayDateStr = '2026/02/25';
     const config = {
-      "2026\\/02\\/25-xp": { "board": ["no"] },
-      "2026\\/02\\/25": { "board": ["yes", "yes"] }
+      "2026\\/02\\/25-xp": { "board": ["no"], "id": 1 },
+      "2026\\/02\\/25": { "board": ["yes", "yes"], "id": 2 }
     }
     """
 
-    assert {:ok, "yes-yes"} = SquaredleSolver.DailyFetcher.extract_grid_from_js_exported(js)
+    assert {:ok, "yes-yes", []} =
+             SquaredleSolver.DailyFetcher.extract_grid_and_words_from_js_exported(js)
   end
 
   test "extract_grid_from_js fallback to basic" do
@@ -18,7 +19,8 @@ defmodule SquaredleSolver.DailyFetcherTest do
     "board": ["a", "b"]
     """
 
-    assert {:ok, "a-b"} = SquaredleSolver.DailyFetcher.extract_grid_from_js_exported(js)
+    assert {:ok, "a-b", []} =
+             SquaredleSolver.DailyFetcher.extract_grid_and_words_from_js_exported(js)
   end
 
   test "extract_grid_from_js fails correctly" do
@@ -26,8 +28,17 @@ defmodule SquaredleSolver.DailyFetcherTest do
     "no_board_here"
     """
 
+    assert {:error, "Could not locate puzzle key in response"} =
+             SquaredleSolver.DailyFetcher.extract_grid_and_words_from_js_exported(js)
+  end
+
+  test "extract_grid_from_js fallback to basic without board array" do
+    js = """
+    "board": "not an array"
+    """
+
     assert {:error, "Could not locate board array in response"} =
-             SquaredleSolver.DailyFetcher.extract_grid_from_js_exported(js)
+             SquaredleSolver.DailyFetcher.extract_grid_and_words_from_js_exported(js)
   end
 
   test "extract_grid_from_js handles missing board inner array" do
@@ -36,7 +47,7 @@ defmodule SquaredleSolver.DailyFetcherTest do
     """
 
     assert {:error, "Board array found but no rows extracted"} =
-             SquaredleSolver.DailyFetcher.extract_grid_from_js_exported(js)
+             SquaredleSolver.DailyFetcher.extract_grid_and_words_from_js_exported(js)
   end
 
   test "fetch_today_puzzle handles connection errors" do

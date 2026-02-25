@@ -23,29 +23,57 @@ defmodule SquaredleSolverWeb.SolverLive do
   end
 
   def handle_info(:do_solve, socket) do
-    {grid_map, size} = SquaredleSolver.Solver.parse_grid(String.downcase(socket.assigns.grid))
+    grid_str = String.downcase(socket.assigns.grid)
 
     words =
-      SquaredleSolver.Solver.solve(grid_map, size, socket.assigns.trie)
-      |> Enum.sort_by(&{String.length(&1), &1}, :desc)
+      case :ets.lookup(:squaredle_cache, {"solve", grid_str}) do
+        [{_, cached_words}] ->
+          cached_words
+
+        [] ->
+          {grid_map, size} = SquaredleSolver.Solver.parse_grid(grid_str)
+
+          computed_words =
+            SquaredleSolver.Solver.solve(grid_map, size, socket.assigns.trie)
+            |> Enum.sort_by(&{String.length(&1), &1}, :desc)
+
+          :ets.insert(:squaredle_cache, {{"solve", grid_str}, computed_words})
+          computed_words
+      end
 
     {:noreply, assign(socket, words: words, solving: false)}
   end
 
   def handle_info(:do_solve_daily, socket) do
-    case SquaredleSolver.DailyFetcher.fetch_today_puzzle() do
-      {:ok, grid_str} ->
-        {grid_map, size} = SquaredleSolver.Solver.parse_grid(String.downcase(grid_str))
-
-        words =
-          SquaredleSolver.Solver.solve(grid_map, size, socket.assigns.trie)
-          |> Enum.sort_by(&{String.length(&1), &1}, :desc)
-
+    case :ets.lookup(:squaredle_cache, :daily) do
+      [{_, {grid_str, words}}] ->
         {:noreply, assign(socket, grid: grid_str, words: words, solving: false, fetch_error: nil)}
 
-      {:error, reason} ->
-        {:noreply,
-         assign(socket, solving: false, fetch_error: "Could not load today's puzzle: #{reason}")}
+      [] ->
+        case SquaredleSolver.DailyFetcher.fetch_today_puzzle() do
+          {:ok, grid_str, words} ->
+            words =
+              if words == [] do
+                {grid_map, size} = SquaredleSolver.Solver.parse_grid(String.downcase(grid_str))
+                SquaredleSolver.Solver.solve(grid_map, size, socket.assigns.trie)
+              else
+                words
+              end
+              |> Enum.sort_by(&{String.length(&1), &1}, :desc)
+
+            :ets.insert(:squaredle_cache, {:daily, {grid_str, words}})
+            :ets.insert(:squaredle_cache, {{"solve", String.downcase(grid_str)}, words})
+
+            {:noreply,
+             assign(socket, grid: grid_str, words: words, solving: false, fetch_error: nil)}
+
+          {:error, reason} ->
+            {:noreply,
+             assign(socket,
+               solving: false,
+               fetch_error: "Could not load today's puzzle: #{reason}"
+             )}
+        end
     end
   end
 
@@ -199,6 +227,7 @@ defmodule SquaredleSolverWeb.SolverLive do
   defp group_by_length(words) do
     words
     |> Enum.group_by(&String.length/1)
+    |> Enum.map(fn {len, group_words} -> {len, Enum.sort(group_words)} end)
     |> Enum.sort_by(fn {len, _} -> len end, :desc)
   end
 end
