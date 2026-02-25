@@ -20,12 +20,12 @@ defmodule SquaredleSolver.DictionaryServer do
   def handle_info(:load, state) do
     path = Application.app_dir(:squaredle_solver, "priv/dictionary.txt")
     trie = SquaredleSolver.Trie.from_file(path)
-    
+
     # Reply to any waiting processes
     Enum.each(state.waiters, fn from ->
       GenServer.reply(from, trie)
     end)
-    
+
     {:noreply, %{trie: trie, loaded: true, waiters: []}}
   end
 
