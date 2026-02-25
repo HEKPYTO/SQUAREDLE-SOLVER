@@ -1,7 +1,6 @@
 # SQUAREDLE-SOLVER
 
 [![CI](https://github.com/HEKPYTO/SQUAREDLE-SOLVER/actions/workflows/ci.yml/badge.svg)](https://github.com/HEKPYTO/SQUAREDLE-SOLVER/actions/workflows/ci.yml)
-[![Coverage Status](https://coveralls.io/repos/github/HEKPYTO/SQUAREDLE-SOLVER/badge.svg)](https://coveralls.io/github/HEKPYTO/SQUAREDLE-SOLVER)
 [![Elixir Version](https://img.shields.io/badge/elixir-1.16.2-purple.svg)](https://elixir-lang.org/)
 [![Phoenix Version](https://img.shields.io/badge/phoenix-1.8.4-orange.svg)](https://www.phoenixframework.org/)
 
