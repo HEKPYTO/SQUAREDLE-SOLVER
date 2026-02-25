@@ -23,6 +23,10 @@ defmodule SquaredleSolver.TrieTest do
     assert Trie.check(trie, "a") == :prefix
   end
 
+  test "check/2 empty" do
+    assert Trie.check(Trie.new(), "") == :not_found
+  end
+
   test "from_file/1" do
     File.write!("test_dict.txt", "apple\nbanana\ncat\ndog\n")
     trie = Trie.from_file("test_dict.txt")

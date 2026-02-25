@@ -9,8 +9,10 @@ defmodule SquaredleSolver.DailyFetcher do
   @doc """
   Fetches today's puzzle. Returns `{:ok, grid_string}` or `{:error, reason}`.
   """
-  def fetch_today_puzzle do
-    with {:ok, %Req.Response{status: 200, body: body}} <- Req.get(@url),
+  def fetch_today_puzzle(opts \\ []) do
+    url = Keyword.get(opts, :url, Application.get_env(:squaredle_solver, :daily_puzzle_url, @url))
+
+    with {:ok, %Req.Response{status: 200, body: body}} <- Req.get(url),
          {:ok, grid_str} <- extract_grid_from_js(body) do
       {:ok, grid_str}
     else
