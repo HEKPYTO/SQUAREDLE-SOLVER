@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" class="overscroll-none">
+<html
+  lang="en"
+  class="overscroll-none h-full bg-[#f4f4f0] dark:bg-zinc-900 transition-colors duration-300"
+>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,26 +14,34 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/js/app.js"}>
     </script>
     <script>
-      (() => {
-        const setTheme = (theme) => {
-          if (theme === "system") {
-            localStorage.removeItem("phx:theme");
-            document.documentElement.removeAttribute("data-theme");
-          } else {
-            localStorage.setItem("phx:theme", theme);
-            document.documentElement.setAttribute("data-theme", theme);
+      // Fast theme application to avoid flash
+      (function() {
+        function getThemePreference() {
+          if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+            return localStorage.getItem('theme');
           }
-        };
-        if (!document.documentElement.hasAttribute("data-theme")) {
-          setTheme(localStorage.getItem("phx:theme") || "system");
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
-        window.addEventListener("storage", (e) => e.key === "phx:theme" && setTheme(e.newValue || "system"));
-        
-        window.addEventListener("phx:set-theme", (e) => setTheme(e.target.dataset.phxTheme));
+        if (getThemePreference() === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
       })();
     </script>
   </head>
-  <body class="overscroll-none">
+  <body class="overscroll-none h-full bg-[#f4f4f0] dark:bg-zinc-900 text-[#1e1e1e] dark:text-zinc-100 font-mono selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black transition-colors duration-300">
+    <div class="flex justify-end p-4 absolute top-0 right-0 w-full z-10">
+      <button
+        id="theme-toggle"
+        class="p-2 border-2 border-black dark:border-white bg-[#f4f4f0] dark:bg-zinc-900 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] hover:translate-y-[1px] hover:translate-x-[1px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[1px_1px_0px_0px_rgba(255,255,255,1)] active:shadow-none active:translate-y-[2px] active:translate-x-[2px] transition-all"
+        onclick="
+        document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      "
+      >
+        <span class="dark:hidden font-bold">DARK</span>
+        <span class="hidden dark:inline font-bold">LIGHT</span>
+      </button>
+    </div>
     {@inner_content}
   </body>
 </html>
