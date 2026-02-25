@@ -85,7 +85,7 @@ defmodule SquaredleSolverWeb.SolverLive do
                 name="grid"
                 value={@grid}
                 placeholder="abcd-efgh-ijkl-mnop"
-                class="border-4 border-black dark:border-white dark:bg-zinc-800 p-4 sm:p-6 text-2xl tracking-[0.2em] uppercase font-black text-center focus:outline-none placeholder:text-gray-400 dark:placeholder:text-zinc-500 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:focus:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
+                class="border-4 border-black bg-white dark:border-white dark:bg-zinc-800 p-4 sm:p-6 text-2xl tracking-[0.2em] uppercase font-black text-center focus:outline-none placeholder:text-zinc-400 dark:placeholder:text-zinc-500 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:focus:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
               />
             </div>
 
@@ -94,12 +94,12 @@ defmodule SquaredleSolverWeb.SolverLive do
                 type="submit"
                 disabled={@loading or @solving or String.trim(@grid) == ""}
                 class={[
-                  "flex-1 p-4 font-black text-xl uppercase tracking-widest border-4 border-black dark:border-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]",
+                  "flex-1 p-4 font-black text-xl uppercase tracking-widest border-4 transition-all",
                   if(@loading or @solving or String.trim(@grid) == "",
                     do:
-                      "cursor-not-allowed bg-gray-300 dark:bg-zinc-800 text-gray-500 dark:text-gray-400 opacity-60",
+                      "cursor-not-allowed border-gray-400 dark:border-zinc-700 bg-gray-200 dark:bg-zinc-800 text-gray-400 dark:text-zinc-600 shadow-[4px_4px_0px_0px_#9ca3af] dark:shadow-[4px_4px_0px_0px_#3f3f46]",
                     else:
-                      "bg-white dark:bg-zinc-900 text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black hover:translate-y-1 hover:translate-x-1 hover:shadow-none active:bg-gray-800"
+                      "border-black dark:border-white bg-white dark:bg-zinc-900 text-black dark:text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] active:translate-y-[4px] active:translate-x-[4px] active:shadow-none"
                   )
                 ]}
               >
@@ -118,12 +118,12 @@ defmodule SquaredleSolverWeb.SolverLive do
                 phx-click="solve_daily"
                 disabled={@loading or @solving}
                 class={[
-                  "flex-1 p-4 font-black text-lg uppercase tracking-widest border-4 border-black dark:border-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]",
+                  "flex-1 p-4 font-black text-lg uppercase tracking-widest border-4 transition-all",
                   if(@loading or @solving,
                     do:
-                      "cursor-not-allowed bg-gray-200 dark:bg-zinc-800 text-gray-500 dark:text-gray-400",
+                      "cursor-not-allowed border-gray-400 dark:border-zinc-700 bg-gray-200 dark:bg-zinc-800 text-gray-400 dark:text-zinc-600 shadow-[4px_4px_0px_0px_#9ca3af] dark:shadow-[4px_4px_0px_0px_#3f3f46]",
                     else:
-                      "bg-[#e53e3e] text-white hover:bg-[#c53030] hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] active:translate-y-[4px] active:translate-x-[4px] active:shadow-none"
+                      "border-black dark:border-white bg-[#e53e3e] text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:bg-[#c53030] hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] active:translate-y-[4px] active:translate-x-[4px] active:shadow-none"
                   )
                 ]}
               >
