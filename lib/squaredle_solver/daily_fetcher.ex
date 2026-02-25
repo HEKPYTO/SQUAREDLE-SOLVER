@@ -12,8 +12,9 @@ defmodule SquaredleSolver.DailyFetcher do
   """
   def fetch_today_puzzle(opts \\ []) do
     url = Keyword.get(opts, :url, Application.get_env(:squaredle_solver, :daily_puzzle_url, @url))
+    retry = Keyword.get(opts, :retry, :safe_transient)
 
-    with {:ok, %Req.Response{status: 200, body: body}} <- Req.get(url),
+    with {:ok, %Req.Response{status: 200, body: body}} <- Req.get(url, retry: retry),
          {:ok, grid_str, words} <- extract_grid_and_words_from_js(body) do
       {:ok, grid_str, words}
     else

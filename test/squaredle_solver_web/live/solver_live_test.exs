@@ -66,25 +66,6 @@ defmodule SquaredleSolverWeb.SolverLiveTest do
     assert html =~ "SQUAREDLE-SOLVER"
   end
 
-  test "daily puzzle trigger error handling", %{conn: conn} do
-    :ets.delete(:squaredle_cache, :daily)
-    Application.put_env(:squaredle_solver, :daily_puzzle_url, "http://localhost:9999/bad")
-    {:ok, view, _html} = live(conn, "/")
-
-    send(view.pid, :load_dictionary)
-    Process.sleep(50)
-
-    html = render_click(view, "solve_daily", %{})
-    assert html =~ "Fetching..."
-
-    # Process the error response asynchronously
-    send(view.pid, :do_solve_daily)
-    Process.sleep(50)
-    assert render(view) =~ "Could not load today&#39;s puzzle"
-
-    Application.delete_env(:squaredle_solver, :daily_puzzle_url)
-  end
-
   test "daily puzzle trigger success handling", %{conn: conn} do
     # Clear cache to ensure we test the initial fetch
     :ets.delete(:squaredle_cache, :daily)

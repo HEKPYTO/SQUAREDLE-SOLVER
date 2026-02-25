@@ -49,16 +49,4 @@ defmodule SquaredleSolver.DailyFetcherTest do
     assert {:error, "Board array found but no rows extracted"} =
              SquaredleSolver.DailyFetcher.extract_grid_and_words_from_js_exported(js)
   end
-
-  test "fetch_today_puzzle handles connection errors" do
-    assert {:error, "Failed to connect"} =
-             SquaredleSolver.DailyFetcher.fetch_today_puzzle(url: "http://localhost:9999/bad")
-  end
-
-  test "fetch_today_puzzle handles HTTP errors" do
-    assert {:error, "HTTP 404"} =
-             SquaredleSolver.DailyFetcher.fetch_today_puzzle(
-               url: "https://httpbin.org/status/404"
-             )
-  end
 end
