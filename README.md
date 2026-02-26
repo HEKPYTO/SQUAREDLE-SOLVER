@@ -4,7 +4,14 @@
 [![Elixir Version](https://img.shields.io/badge/elixir-1.16.2-purple.svg)](https://elixir-lang.org/)
 [![Phoenix Version](https://img.shields.io/badge/phoenix-1.8.4-orange.svg)](https://www.phoenixframework.org/)
 
-A fast full-stack Elixir/Phoenix solver for the popular word-finding game [Squaredle](https://squaredle.app). 
+A fast full-stack Elixir/Phoenix solver for the popular word-finding game [Squaredle](https://squaredle.app).
+
+## Screenshots
+
+| Light | Dark |
+|-------|------|
+| ![Light mode empty](assets/screenshots/screenshot_light_empty.png) | ![Dark mode empty](assets/screenshots/screenshot_dark_empty.png) |
+| ![Light mode results](assets/screenshots/screenshot_light_results.png) | ![Dark mode results](assets/screenshots/screenshot_dark_results.png) |
 
 ## Features
 
