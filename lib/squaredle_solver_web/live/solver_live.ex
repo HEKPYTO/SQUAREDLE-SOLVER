@@ -79,7 +79,7 @@ defmodule SquaredleSolverWeb.SolverLive do
 
   def render(assigns) do
     ~H"""
-    <div class="flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 pt-16">
+    <div class="flex flex-col items-center min-h-screen p-4 sm:p-8 pt-24 sm:pt-32 pb-12">
       <div class="w-full max-w-xl">
         <h1 class="text-4xl sm:text-5xl font-black mb-10 tracking-widest border-b-4 border-black dark:border-white pb-4 text-center uppercase">
           SQUAREDLE-SOLVER
