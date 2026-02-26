@@ -45,3 +45,6 @@ npm-debug.log
 # Ignore environment variables file
 .env
 
+# Ignore production compose (contains secrets/infra details)
+docker-compose.prod.yml
+
