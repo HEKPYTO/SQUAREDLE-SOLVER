@@ -4,7 +4,7 @@
 [![Elixir Version](https://img.shields.io/badge/elixir-1.16.2-purple.svg)](https://elixir-lang.org/)
 [![Phoenix Version](https://img.shields.io/badge/phoenix-1.8.4-orange.svg)](https://www.phoenixframework.org/)
 
-A fast full-stack Elixir/Phoenix solver for the popular word-finding game [Squaredle](https://squaredle.app).
+A fast full-stack Elixir/Phoenix solver for the popular word-finding game [Squaredle](https://squaredle.app). Not affiliated with squaredle.app.
 
 ## Screenshots
 
@@ -18,7 +18,8 @@ A fast full-stack Elixir/Phoenix solver for the popular word-finding game [Squar
 - Core Algorithm: Depth-First Search (DFS) combined with an in-memory Prefix Trie and bitmask path validation.
 - Daily Puzzle Support: Fetches today's puzzle configuration from the official site.
 - Minimalist UI: A clean, Neo-brutalist interactive frontend built with Phoenix LiveView and Tailwind CSS.
-- Production Ready: Ships with an Alpine Dockerfile and Docker Compose orchestration.
+- Dark/Light Mode: Toggle via button or spacebar shortcut, persisted to localStorage.
+- Production Ready: Ships with an Alpine Dockerfile and Docker Compose orchestration with Traefik support.
 
 ## Prerequisites
 
